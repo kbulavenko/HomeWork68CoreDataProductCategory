@@ -12,9 +12,11 @@
 #import "MyProductMO.h"
 #import "MyCategoryMO.h"
 
+static  NSString   *MyTableViewNeedReloadNotification = @"MyTableViewNeedReloadNotification";
+static  NSString   *MyPickerSelectedStringNotification = @"MyPickerSelectedStringNotification";
 
 
-@interface MyUITableViewDataSource : NSObject<UITableViewDataSource, UITableViewDelegate>
+@interface MyUITableViewDataSource : NSObject<UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 
 
@@ -23,6 +25,7 @@
 @property  NSMutableArray<NSDictionary *>   *bufferCategory;
 @property  BOOL    isProductNoCategory;
 
+-(void)makeDB;
 -(void)reloadBuffersFromDB;
 
 

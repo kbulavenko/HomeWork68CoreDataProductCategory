@@ -28,10 +28,13 @@
 {
     if(isProductNoCategory)
     {
+        
+       // NSLog(@" self.bufferProduct.count = %li",  self.bufferProduct.count);
         return   self.bufferProduct.count;
     }
     else
     {
+       // NSLog(@" self.bufferCategory.count = %li",  self.bufferCategory.count);
         return  self.bufferCategory.count;
     }
     
@@ -41,16 +44,11 @@
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-
+#pragma mark   Выдача значений в ячейки
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  //  UITableViewCell   *tvc  =   [[UITableViewCell   alloc]  initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: @"id"];
-   
     
-  //  UITableViewCell   *tvc
-    
-#pragma mark   Выдача значений в ячейки 
-    
+   // NSLog(@" indexPath.row = %li, indexPath.section  = %li ", indexPath.row, indexPath.section);
     if(isProductNoCategory)
     {
         
@@ -68,12 +66,13 @@
          */
        
         tvc.textLabel.text  = [NSString  stringWithFormat: @"%@", [self->bufferProduct objectAtIndex: indexPath.row][@"name"]];
-        tvc.detailTextLabel.text  = [NSString  stringWithFormat: @"Price %@    Weight %@",
+        tvc.detailTextLabel.text  = [NSString  stringWithFormat: @"Price %@    Weight %@  (%@)",
                                      [self->bufferProduct objectAtIndex: indexPath.row][@"price"],
-                                     [self->bufferProduct objectAtIndex: indexPath.row][@"weight"]
+                                     [self->bufferProduct objectAtIndex: indexPath.row][@"weight"],
+                                     [self->bufferProduct objectAtIndex: indexPath.row][@"categoryName"]
                                      ];
        
-        
+      //  NSLog(@"tvc.textLabel.text = %@", tvc.textLabel.text);
         
         CGRect   frTV  = tableView.frame;
         CGRect   fr  = tvc.contentView.frame;
@@ -110,12 +109,12 @@
         
         return tvc;
     }
-    UITableViewCell   *tvc =  [[UITableViewCell   alloc]  initWithStyle: UITableViewCellStyleSubtitle  reuseIdentifier: @"id"];
-    
-    tvc.textLabel.text  = [NSString  stringWithFormat: @"N/A"];
-    tvc.detailTextLabel.text  = @"N/A";
-    
-    return tvc;
+//    UITableViewCell   *tvc =  [[UITableViewCell   alloc]  initWithStyle: UITableViewCellStyleSubtitle  reuseIdentifier: @"id"];
+//    
+//    tvc.textLabel.text  = [NSString  stringWithFormat: @"N/A"];
+//    tvc.detailTextLabel.text  = @"N/A";
+//    
+//    return tvc;
 }
 
 //@optional
@@ -226,7 +225,7 @@
     
     MyCategoryMO   *categoryIPhones   = [NSEntityDescription insertNewObjectForEntityForName:@"Category" inManagedObjectContext:[MDC managedObjectContext]];
     
-    [categoryIPhones  setName:@"iPhones"];
+    [categoryIPhones  setName:@"Айфоны"];
     
     //    Mars
     // ------------  Создание объекта Product  ------
@@ -315,7 +314,7 @@
         exit(0);
     }
     
-    NSLog(@"Count : %li", resultsC.count);
+  //  NSLog(@"Count : %li", resultsC.count);
     
     
     self.bufferCategory  = [NSMutableArray<NSDictionary  *>  array];
@@ -342,7 +341,7 @@
         {
             imageIdInt  = 3;
         }
-        else if([category.name isEqualToString: @"iPhones"])
+        else if([category.name isEqualToString: @"Айфоны"])
         {
             imageIdInt  = 4;
         }
@@ -381,11 +380,87 @@
             [self.bufferProduct  addObject: dictProduct];
             
         }
+    }
+    
+    
+   // NSLog(@"bufferCategory = %@", self.bufferCategory);
+  //  NSLog(@"bufferProduct = %@", self.bufferProduct);
+    
+}
+
+#pragma mark  Обработчик Tab Bar
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item // called when a new view is selected by the user (but not programatically)
+{
+    if (item.tag == 0 && self.isProductNoCategory  == NO)
+    {
+        self.isProductNoCategory = YES;
+        [self reloadBuffersFromDB];
+      //  NSNotificationCenter *NC = [NSNotificationCenter defaultCenter];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MyTableViewNeedReloadNotification object:self];
         
     }
-
-
+    else  if (item.tag == 1 && self.isProductNoCategory == YES)
+    {
+        self.isProductNoCategory = NO;
+        [self reloadBuffersFromDB];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MyTableViewNeedReloadNotification object:self];
+    }
 }
+
+
+#pragma mark  #####################
+#pragma mark  Работа с базой данных
+#pragma mark  Работа с базой данных. Удаление.
+-(void)deleteRowAt:(NSIndexPath* ) ip
+{
+    
+}
+
+
+
+#pragma mark  Работа с базой данных. Добавление.
+-(void)addRow
+{
+    
+}
+
+
+
+#pragma mark  Работа с базой данных. Редактирование
+-(void)editRowAt:(NSIndexPath* ) ip
+{
+    
+}
+
+
+
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.bufferCategory.count;
+}
+
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component __TVOS_PROHIBITED
+{
+    return [self.bufferCategory objectAtIndex:row][@"name"];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component __TVOS_PROHIBITED
+{
+    
+    NSDictionary   *dict   =  @{
+                                @"pick"  : [self.bufferCategory objectAtIndex: row][@"name"]
+                                };
+    [[NSNotificationCenter defaultCenter] postNotificationName: MyPickerSelectedStringNotification object: self userInfo: dict] ;
+    
+}
+
 
 
 @end

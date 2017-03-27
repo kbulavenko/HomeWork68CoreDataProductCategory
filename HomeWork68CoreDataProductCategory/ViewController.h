@@ -11,6 +11,7 @@
 #import "MyDataController.h"
 #import "MyProductMO.h"
 #import "MyCategoryMO.h"
+//#import "PickerTextField.h"
 
 @interface ViewController : UIViewController
 
@@ -27,6 +28,10 @@
 
 - (IBAction)btnClick:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
+
+//@property  PickerTextField    *ptf;
+@property   NSString   *pickerString;
 
 @end
 
