@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +17,62 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsq-2b-zRx">
+                                <rect key="frame" x="20" y="24" width="166" height="22"/>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j4d-iN-LN0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdq-76-qe8">
+                                <rect key="frame" x="217" y="20" width="166" height="30"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c6y-zK-BPn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxe-Oe-drE">
+                                <rect key="frame" x="414" y="20" width="166" height="30"/>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BEn-FN-mtd"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IuI-ZQ-qWt">
+                                <rect key="frame" x="20" y="58" width="560" height="522"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cxe-Oe-drE" firstAttribute="width" secondItem="Zsq-2b-zRx" secondAttribute="width" id="2c0-me-x28"/>
+                            <constraint firstItem="cxe-Oe-drE" firstAttribute="leading" secondItem="Hdq-76-qe8" secondAttribute="trailing" constant="31" id="5eJ-tj-AqV"/>
+                            <constraint firstItem="IuI-ZQ-qWt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9rz-zJ-32G"/>
+                            <constraint firstItem="IuI-ZQ-qWt" firstAttribute="top" secondItem="cxe-Oe-drE" secondAttribute="bottom" constant="8" id="AGM-lG-7bY"/>
+                            <constraint firstItem="IuI-ZQ-qWt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="AQt-Ix-HO8"/>
+                            <constraint firstItem="Hdq-76-qe8" firstAttribute="width" secondItem="Zsq-2b-zRx" secondAttribute="width" id="BQP-sR-GDY"/>
+                            <constraint firstItem="Hdq-76-qe8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Kje-yq-SFA"/>
+                            <constraint firstItem="Zsq-2b-zRx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="4" id="MeM-IX-R4z"/>
+                            <constraint firstItem="Zsq-2b-zRx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="SuH-fi-Qbr"/>
+                            <constraint firstItem="IuI-ZQ-qWt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="VEK-Vt-H81"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IuI-ZQ-qWt" secondAttribute="bottom" constant="20" id="YMU-eV-766"/>
+                            <constraint firstItem="cxe-Oe-drE" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gdZ-yr-xVX"/>
+                            <constraint firstItem="IuI-ZQ-qWt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="n3Q-NW-GgF"/>
+                            <constraint firstItem="Hdq-76-qe8" firstAttribute="leading" secondItem="Zsq-2b-zRx" secondAttribute="trailing" constant="31" id="oat-G7-vXo"/>
+                            <constraint firstItem="cxe-Oe-drE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="xZV-5Z-1wu"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="btnAdd" destination="Zsq-2b-zRx" id="0xA-CT-3NI"/>
+                        <outlet property="btnDlt" destination="cxe-Oe-drE" id="PM4-6i-h98"/>
+                        <outlet property="btnEdt" destination="Hdq-76-qe8" id="oeA-m4-Qmh"/>
+                        <outlet property="tableView" destination="IuI-ZQ-qWt" id="GUf-66-5k1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="480" y="410"/>
         </scene>
     </scenes>
 </document>
