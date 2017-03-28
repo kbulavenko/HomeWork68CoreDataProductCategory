@@ -326,7 +326,7 @@
         int imageIdInt = 0;
         
         MyCategoryMO  *category  = (MyCategoryMO *) [resultsC  objectAtIndex:i];
-        NSLog(@"Category name: %@ \n\n", category.name);
+        NSLog(@"Category name: %@", category.name);
         
         
         if([category.name isEqualToString: @"Книги"])
@@ -381,7 +381,7 @@
             
         }
     }
-    
+    NSLog(@"\n\n   *******************************************   - End Show DB    --- *****************************\n\n");
     
    // NSLog(@"bufferCategory = %@", self.bufferCategory);
   //  NSLog(@"bufferProduct = %@", self.bufferProduct);
@@ -455,7 +455,9 @@
 {
     
     NSDictionary   *dict   =  @{
-                                @"pick"  : [self.bufferCategory objectAtIndex: row][@"name"]
+                                @"pick"  : [self.bufferCategory objectAtIndex: row][@"name"],
+                                @"row"   : @(row),
+                                @"categoryId"  : [self.bufferCategory objectAtIndex: row][@"id"]
                                 };
     [[NSNotificationCenter defaultCenter] postNotificationName: MyPickerSelectedStringNotification object: self userInfo: dict] ;
     

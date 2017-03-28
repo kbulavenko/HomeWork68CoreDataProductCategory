@@ -31,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 //@property  PickerTextField    *ptf;
-@property   NSString   *pickerString;
+@property   NSDictionary   *pickerDictionary;
 
 @end
 
